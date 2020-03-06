@@ -1,6 +1,6 @@
 ## Workflow
 
-1. Fork this repo to create your xxh shell entrypoint.
+1. Fork this repo to create your [xxh](https://github.com/xxh/xxh) shell entrypoint.
 2. Rename your repo to `xxh-shell-myshell`
 3. Install [xxh](https://github.com/xxh/xxh) and run once to creating `~/.xxh`
 4. `cd ~/.xxh/shells && git clone https://github.com/you/xxh-shell-myshell && cd xxh-shell-myshell`
