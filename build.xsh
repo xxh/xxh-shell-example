@@ -16,6 +16,8 @@ rm -rf @(build_dir)/
 mkdir -p @(build_dir)
 cd @(build_dir)
 
+cp @(script_dir / 'entrypoint.sh') @(build_dir)/
+
 if p'your_portable_shell'.exists():
     eprint('SKIP: Portable shell already builded')
 else:
