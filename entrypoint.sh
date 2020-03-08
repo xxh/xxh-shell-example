@@ -9,15 +9,15 @@
 #   -c <command>      Execute command on host, print the result and exit
 #   -v                Verbose mode to debug
 #
-while getopts f:c:v: option
-do
-case "${option}"
-in
-f) EXECUTE_FILE=${OPTARG};;
-c) EXECUTE_COMMAND=${OPTARG};;
-v) VERBOSE=${OPTARG};;
-esac
-done
+#while getopts f:c:v: option
+#do
+#case "${option}"
+#in
+#f) EXECUTE_FILE=${OPTARG};;
+#c) EXECUTE_COMMAND=${OPTARG};;
+#v) VERBOSE=${OPTARG};;
+#esac
+#done
 
 #
 # Move to current directory
