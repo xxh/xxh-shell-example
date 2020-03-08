@@ -14,3 +14,7 @@
 ## xxh-shell example
 
 Real life example of creating xxh-shell and xxh-plugins you could find in [xxh-shell-xonsh-appimage](https://github.com/xxh/xxh-shell-xonsh-appimage).
+
+## Plugins
+
+To support plugins to your xxh-shell you should add execution the `pluginrc` files. Examples: [.zshrc](https://github.com/xxh/xxh-shell-zsh/blob/master/.zshrc), [xonshrc](https://github.com/xxh/xxh-shell-xonsh-appimage/blob/master/xonshrc.xsh).
