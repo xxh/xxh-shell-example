@@ -1,15 +1,15 @@
 ## Workflow
-
-1. Fork this repo to create your [xxh](https://github.com/xxh/xxh) shell entrypoint.
-2. Rename your repo to `xxh-shell-myshell`
-3. Install [xxh](https://github.com/xxh/xxh) and run once to creating `~/.xxh`
-4. `cd ~/.xxh/xxh/shells && git clone https://github.com/you/xxh-shell-myshell && cd xxh-shell-myshell`
-5. Edit `build.xsh` script
-6. Edit `entrypoint.sh` script
-7. Run `./build.xsh`
-8. Try to connect `xxh myhost +s xxh-shell-myshell` (add `+if` to force reinstall)
-9. If everything works commit and push your changes
-10. You rock! [Tell us about your work](https://gitter.im/xonssh-xxh/community)!
+1. If you want to create the new xxh-shell entrypoint you should have portable version of the shell. It could be static binary, [AppImage](https://appimage.org/), [Flatpak](https://www.flatpak.org/), [zipapp](https://docs.python.org/3.5/library/zipapp.html), or any other way to run shell without dependencies.
+2. Fork this repo to create your [xxh](https://github.com/xxh/xxh) shell entrypoint.
+3. Rename your repo to `xxh-shell-myshell`
+4. Install [xxh](https://github.com/xxh/xxh) and run once to creating `~/.xxh`
+5. `cd ~/.xxh/xxh/shells && git clone https://github.com/you/xxh-shell-myshell && cd xxh-shell-myshell`
+6. Edit `build.xsh` script. While build you should create `build` directory with minimal group of files to run the portable shell.
+7. Edit `entrypoint.sh` script. This script should be copied to `build` directory while building and this script will be the main entrypoint to the shell.
+8. Run `./build.xsh`. It will be great if after building you can run `build/entrypoint.sh` and open the shell locally.
+9. Try to connect: `xxh myhost +if +s xxh-shell-myshell` (`+if` means force reinstall).
+10. Try to use commands, try to move thru directories. If everything as expected try commit and push your changes.
+11. You rock! [Tell us about your work](https://gitter.im/xonssh-xxh/community)!
 
 ## xxh-shell example
 
