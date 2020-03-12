@@ -5,18 +5,36 @@
 
 #
 # Support three arguments (this recommend but not required):
-#   -f <file>         Execute file on host, print the result and exit
-#   -c <command>      Execute command on host, print the result and exit
-#   -v <level>        Verbose mode: 1 - verbose, 2 - super verbose
+#   -f <file>              Execute file on host, print the result and exit
+#   -c <command>           Execute command on host, print the result and exit
+#   -v <level>             Verbose mode: 1 - verbose, 2 - super verbose
+#   -e <NAME=B64> -e ...   Environement variables (B64 is base64 encoded string)
 #
-while getopts f:c:v: option
+while getopts f:c:v:e: option
 do
 case "${option}"
 in
 f) EXECUTE_FILE=${OPTARG};;
 c) EXECUTE_COMMAND=${OPTARG};;
 v) VERBOSE=${OPTARG};;
+e) ENV+=("$OPTARG");;
 esac
+done
+
+if [[ $VERBOSE != '' ]]; then
+  export XXH_VERBOSE=$VERBOSE
+fi
+
+for env in "${ENV[@]}"; do
+  name="$( cut -d '=' -f 1 <<< "$env" )";
+  val="$( cut -d '=' -f 2- <<< "$env" )";
+  val=`echo $val | base64 -d`
+
+  if [[ $XXH_VERBOSE == '1' ]]; then
+    echo Environment variable "$env": name=$name, value=$val
+  fi
+
+  export $name="$val"
 done
 
 ## Example disabling option:
@@ -33,10 +51,6 @@ done
 #if [[ $EXECUTE_FILE ]]; then
 #  EXECUTE_COMMAND=""
 #fi
-
-if [[ $VERBOSE != '' ]]; then
-  export XXH_VERBOSE=$VERBOSE
-fi
 
 ## Example of adding argument `-f` before
 #EXECUTE_FILE=`[ $EXECUTE_FILE ] && echo -n "-f $EXECUTE_FILE" || echo -n ""`
