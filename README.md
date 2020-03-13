@@ -18,3 +18,16 @@ Real life example of creating xxh-shell and xxh-plugins you could find in [xxh-s
 ## Plugins
 
 To support plugins to your xxh-shell you should add execution the `pluginrc` files. Examples: [.zshrc](https://github.com/xxh/xxh-shell-zsh/blob/master/.zshrc), [xonshrc](https://github.com/xxh/xxh-shell-xonsh-appimage/blob/master/xonshrc.xsh).
+
+## Seamless mode
+The xxh has seamless environment mode which allows to pass variable from your current shell session 
+to the xxh host session. For example if you have `XONSH_COLOR_STYLE` variable with your shell color theme you shouldn't
+worry about passing it manually. Example for xonsh: 
+```
+home> print($XONSH_COLOR_STYLE)
+paraiso-dark
+home> source xxh.xsh myhost
+myhost> print($XONSH_COLOR_STYLE)
+paraiso-dark
+``` 
+This very useful when you want to use the same tools on your local and remote host. 
