@@ -9,8 +9,9 @@
 #   -c <command>           Execute command on host, print the result and exit
 #   -v <level>             Verbose mode: 1 - verbose, 2 - super verbose
 #   -e <NAME=B64> -e ...   Environement variables (B64 is base64 encoded string)
+#   -b <BASE64> -b ...     Base64 encoded bash command
 #
-while getopts f:c:v:e: option
+while getopts f:c:v:e:b: option
 do
 case "${option}"
 in
@@ -18,6 +19,7 @@ f) EXECUTE_FILE=${OPTARG};;
 c) EXECUTE_COMMAND=${OPTARG};;
 v) VERBOSE=${OPTARG};;
 e) ENV+=("$OPTARG");;
+b) EBASH+=("$OPTARG");;
 esac
 done
 
@@ -30,11 +32,20 @@ for env in "${ENV[@]}"; do
   val="$( cut -d '=' -f 2- <<< "$env" )";
   val=`echo $val | base64 -d`
 
-  if [[ $XXH_VERBOSE == '1' ]]; then
+  if [[ $XXH_VERBOSE == '1' || $XXH_VERBOSE == '2' ]]; then
     echo Environment variable "$env": name=$name, value=$val
   fi
 
   export $name="$val"
+done
+
+for eb in "${EBASH[@]}"; do
+  bash_command=`echo $eb | base64 -d`
+
+  if [[ $XXH_VERBOSE == '1' || $XXH_VERBOSE == '2' ]]; then
+    echo Entrypoint bash execute: $bash_command
+  fi
+  eval $bash_command
 done
 
 ## Example disabling option:
