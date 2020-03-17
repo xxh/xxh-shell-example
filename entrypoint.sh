@@ -4,7 +4,7 @@
 #
 
 #
-# Support three arguments (this recommend but not required):
+# Support arguments (this recommend but not required):
 #   -f <file>               Execute file on host, print the result and exit
 #   -c <command>            [Not recommended to use] Execute command on host, print the result and exit
 #   -C <command in base64>  Execute command on host, print the result and exit
