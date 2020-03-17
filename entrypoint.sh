@@ -5,18 +5,20 @@
 
 #
 # Support three arguments (this recommend but not required):
-#   -f <file>              Execute file on host, print the result and exit
-#   -c <command>           Execute command on host, print the result and exit
-#   -v <level>             Verbose mode: 1 - verbose, 2 - super verbose
-#   -e <NAME=B64> -e ...   Environement variables (B64 is base64 encoded string)
-#   -b <BASE64> -b ...     Base64 encoded bash command
+#   -f <file>               Execute file on host, print the result and exit
+#   -c <command>            [Not recommended to use] Execute command on host, print the result and exit
+#   -C <command in base64>  Execute command on host, print the result and exit
+#   -v <level>              Verbose mode: 1 - verbose, 2 - super verbose
+#   -e <NAME=B64> -e ...    Environement variables (B64 is base64 encoded string)
+#   -b <BASE64> -b ...      Base64 encoded bash command
 #
-while getopts f:c:v:e:b: option
+while getopts f:c:C:v:e:b: option
 do
 case "${option}"
 in
 f) EXECUTE_FILE=${OPTARG};;
 c) EXECUTE_COMMAND=${OPTARG};;
+C) EXECUTE_COMMAND_B64=${OPTARG};;
 v) VERBOSE=${OPTARG};;
 e) ENV+=("$OPTARG");;
 b) EBASH+=("$OPTARG");;
@@ -54,14 +56,25 @@ done
 #  exit 1
 #fi
 
-## Example command argument:
-#if [[ $EXECUTE_COMMAND ]]; then
-#  EXECUTE_COMMAND=(-c "${EXECUTE_COMMAND}")
-#fi
-#
-#if [[ $EXECUTE_FILE ]]; then
-#  EXECUTE_COMMAND=""
-#fi
+## Example command:
+if [[ $EXECUTE_COMMAND ]]; then
+  EXECUTE_COMMAND=(-c "${EXECUTE_COMMAND}")
+fi
+
+if [[ $EXECUTE_COMMAND_B64 ]]; then
+  EXECUTE_COMMAND=`echo $EXECUTE_COMMAND_B64 | base64 -d`
+  if [[ $XXH_VERBOSE == '1' || $XXH_VERBOSE == '2' ]]; then
+    echo Execute command base64: $EXECUTE_COMMAND_B64
+    echo Execute command: $EXECUTE_COMMAND
+  fi
+
+  EXECUTE_COMMAND=(-c "${EXECUTE_COMMAND}")
+fi
+
+
+if [[ $EXECUTE_FILE ]]; then
+  EXECUTE_COMMAND=""
+fi
 
 ## Example of adding argument `-f` before
 #EXECUTE_FILE=`[ $EXECUTE_FILE ] && echo -n "-f $EXECUTE_FILE" || echo -n ""`
