@@ -4,9 +4,9 @@
 3. Rename your repo to `xxh-shell-myshell`
 4. Install [xxh](https://github.com/xxh/xxh) and run once to creating `~/.xxh`
 5. `cd ~/.xxh/xxh/shells && git clone https://github.com/you/xxh-shell-myshell && cd xxh-shell-myshell`
-6. Edit `build.xsh` script. While build you should create `build` directory with minimal group of files to run the portable shell.
+6. Edit `build.sh` script. While build you should create `build` directory with minimal group of files to run the portable shell.
 7. Edit `entrypoint.sh` script. This script should be copied to `build` directory while building and this script will be the main entrypoint to the shell.
-8. Run `./build.xsh`. It will be great if after building you can run `build/entrypoint.sh` and open the shell locally.
+8. Run `./build.sh`. It will be great if after building you can run `build/entrypoint.sh` and open the shell locally.
 9. Try to connect: `xxh myhost +if +s xxh-shell-myshell` (`+if` means force reinstall).
 10. Try to use commands, try to move thru directories. If everything as expected try commit and push your changes.
 11. You rock! [Tell us about your work](https://gitter.im/xonssh-xxh/community)!
