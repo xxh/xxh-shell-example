@@ -86,7 +86,7 @@ fi
 CURRENT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd $CURRENT_DIR
 
-export XXH_HOME=`realpath -m $CURRENT_DIR/../../../../`
+export XXH_HOME=`dirname -m $CURRENT_DIR/../../../../p`
 #export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
 
 #
