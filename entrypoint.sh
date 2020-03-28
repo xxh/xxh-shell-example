@@ -87,6 +87,7 @@ CURRENT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd $CURRENT_DIR
 
 export XXH_HOME=`dirname -m $CURRENT_DIR/../../../../p`
+export XDG_CONFIG_HOME=$XXH_HOME/.config
 #export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
 
 #
