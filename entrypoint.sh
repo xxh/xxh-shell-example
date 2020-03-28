@@ -90,6 +90,12 @@ CURRENT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd $CURRENT_DIR
 
 export XXH_HOME=`readlink -f $CURRENT_DIR/../../../..`
+
+#if [[ ! -d $XXH_HOME/.local/share/<yourshell> ]]; then
+#  mkdir -p $XXH_HOME/.local/share/<yourshell>
+#fi
+#export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
+
 export XDG_CONFIG_HOME=$XXH_HOME/.config
 
 if [[ $HOMEPATH != '' ]]; then
@@ -105,7 +111,6 @@ else
   export HOME=$XXH_HOME
 fi
 
-#export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
 
 #
 # Run the portable shell
