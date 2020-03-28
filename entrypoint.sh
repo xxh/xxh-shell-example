@@ -94,7 +94,7 @@ export XXH_HOME=`readlink -f $CURRENT_DIR/../../../..`
 #if [[ ! -d $XXH_HOME/.local/share/<yourshell> ]]; then
 #  mkdir -p $XXH_HOME/.local/share/<yourshell>
 #fi
-#export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
+#export HISTFILE=$XXH_HOME/.local/share/<yourshell>/<yourshell>_history
 
 export XDG_CONFIG_HOME=$XXH_HOME/.config
 
