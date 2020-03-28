@@ -13,6 +13,7 @@
 #   -b <BASE64> -b ...      Base64 encoded bash command
 #   -H <homepath>           Home path. Will be $HOME on the host.
 #
+
 while getopts f:c:C:v:e:b:H: option
 do
 case "${option}"
@@ -78,9 +79,9 @@ if [[ $EXECUTE_FILE ]]; then
   EXECUTE_COMMAND=""
 fi
 
-## Example of adding argument `-f` before
-#EXECUTE_FILE=`[ $EXECUTE_FILE ] && echo -n "-f $EXECUTE_FILE" || echo -n ""`
-#
+# Example of adding argument `-f` before
+EXECUTE_FILE=`[ $EXECUTE_FILE ] && echo -n "-f $EXECUTE_FILE" || echo -n ""`
+
 
 #
 # Move to current directory
@@ -109,7 +110,4 @@ fi
 #
 # Run the portable shell
 #
-./your_portable_shell
-
-# Example:
-# ./your_portable_shell $EXECUTE_FILE "${EXECUTE_COMMAND[@]}"
+./your_portable_shell # $EXECUTE_FILE "${EXECUTE_COMMAND[@]}"
