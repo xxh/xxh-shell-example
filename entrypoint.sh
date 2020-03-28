@@ -11,8 +11,9 @@
 #   -v <level>              Verbose mode: 1 - verbose, 2 - super verbose
 #   -e <NAME=B64> -e ...    Environement variables (B64 is base64 encoded string)
 #   -b <BASE64> -b ...      Base64 encoded bash command
+#   -H <homepath>           Home path. Will be $HOME on the host.
 #
-while getopts f:c:C:v:e:b: option
+while getopts f:c:C:v:e:b:H: option
 do
 case "${option}"
 in
@@ -22,6 +23,7 @@ C) EXECUTE_COMMAND_B64=${OPTARG};;
 v) VERBOSE=${OPTARG};;
 e) ENV+=("$OPTARG");;
 b) EBASH+=("$OPTARG");;
+H) HOMEPATH=${OPTARG};;
 esac
 done
 
@@ -88,6 +90,20 @@ cd $CURRENT_DIR
 
 export XXH_HOME=`readlink -f $CURRENT_DIR/../../../..`
 export XDG_CONFIG_HOME=$XXH_HOME/.config
+
+if [[ $HOMEPATH != '' ]]; then
+  homerealpath=`readlink -f $HOMEPATH`
+  if [[ -d $homerealpath ]]; then
+    export HOME=$homerealpath
+  else
+    echo "Home path not found: $homerealpath"
+    echo "Set HOME to $XXH_HOME"
+    export HOME=$XXH_HOME
+  fi
+else
+  export HOME=$XXH_HOME
+fi
+
 #export HISTORY_FILE=$XXH_HOME/.your_portable_shell_history
 
 #
