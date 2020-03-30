@@ -94,9 +94,6 @@ export XXH_HOME=`readlink -f $CURRENT_DIR/../../../..`
 #if [[ ! -d $XXH_HOME/.local/share/<yourshell> ]]; then
 #  mkdir -p $XXH_HOME/.local/share/<yourshell>
 #fi
-#export HISTFILE=$XXH_HOME/.local/share/<yourshell>/<yourshell>_history
-
-export XDG_CONFIG_HOME=$XXH_HOME/.config
 
 if [[ $HOMEPATH != '' ]]; then
   homerealpath=`readlink -f $HOMEPATH`
@@ -110,6 +107,9 @@ if [[ $HOMEPATH != '' ]]; then
 else
   export HOME=$XXH_HOME
 fi
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
 
 
 #
