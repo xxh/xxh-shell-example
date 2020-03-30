@@ -11,10 +11,11 @@
 #   -v <level>              Verbose mode: 1 - verbose, 2 - super verbose
 #   -e <NAME=B64> -e ...    Environement variables (B64 is base64 encoded string)
 #   -b <BASE64> -b ...      Base64 encoded bash command
-#   -H <homepath>           Home path. Will be $HOME on the host.
+#   -H <HOME path>          HOME path. Will be $HOME on the host.
+#   -X <XDG path>           XDG_* path (https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 #
 
-while getopts f:c:C:v:e:b:H: option
+while getopts f:c:C:v:e:b:H:X: option
 do
 case "${option}"
 in
@@ -25,6 +26,7 @@ v) VERBOSE=${OPTARG};;
 e) ENV+=("$OPTARG");;
 b) EBASH+=("$OPTARG");;
 H) HOMEPATH=${OPTARG};;
+X) XDGPATH=${OPTARG};;
 esac
 done
 
@@ -108,9 +110,20 @@ else
   export HOME=$XXH_HOME
 fi
 
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
+if [[ $XDGPATH != '' ]]; then
+  xdgrealpath=`readlink -f $XDGPATH`
+  if [[ ! -d $xdgrealpath ]]; then
+    echo "XDG path not found: $xdgrealpath"
+    echo "Set XDG path to $XXH_HOME"
+    export XDGPATH=$XXH_HOME
+  fi
+else
+  export XDGPATH=$XXH_HOME
+fi
 
+export XDG_CONFIG_HOME=$XDGPATH/.config
+export XDG_DATA_HOME=$XDGPATH/.local/share
+export XDG_CACHE_HOME=$XDGPATH/.cache
 
 #
 # Run the portable shell
