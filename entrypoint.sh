@@ -3,6 +3,10 @@
 # Entrypoint script should be pure bash.
 #
 
+# Debugging helpers:
+#PS4=':${LINENO}+'  # Show line numbers
+#set -x             # Trace commands
+
 #
 # Support arguments (this recommend but not required):
 #   -f <file>               Execute file on host, print the result and exit
