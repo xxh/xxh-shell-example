@@ -132,7 +132,7 @@ export XDG_CACHE_HOME=$XDGPATH/.cache
 #
 # Init prerun plugins
 #
-for pluginrc_file in $(find $CURRENT_DIR/../../../plugins/xxh-plugin-*/build -type f -name '*pluginrc_prerun.sh' -printf '%f\t%p\n' 2>/dev/null | sort -k1 | cut -f2); do
+for pluginrc_file in $(find $CURRENT_DIR/../../../plugins/xxh-plugin-*/build -type f -name '*prerun.sh' -printf '%f\t%p\n' 2>/dev/null | sort -k1 | cut -f2); do
   if [[ -f $pluginrc_file ]]; then
     if [[ $XXH_VERBOSE == '1' ]]; then
       echo Load plugin $pluginrc_file
